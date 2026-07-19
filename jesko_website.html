@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jesko | Computer Science</title>
+    <meta name="description" content="Personal portfolio of Jesko, Computer Science student at KIT specializing in Cybersecurity, Cryptography, and Number Theory.">
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* CSS Variables & Color Palette */
+        :root {
+            --bg-dark: #090B10;
+            --c-peach: #FFB6A6;
+            --c-light-peach: #FFEBD3;
+            --c-green: #9BCEC1;
+            --c-blue: #67A2C5;
+            
+            --text-main: #F3F4F6;
+            --text-muted: #9CA3AF;
+            
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --glass-hover-border: rgba(103, 162, 197, 0.3);
+            
+            --transition-slow: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            --transition-fast: 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        body {
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-weight: 500;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+        h2 { font-size: clamp(2rem, 4vw, 2.5rem); margin-bottom: 2rem; color: var(--text-main); }
+        h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+        
+        p { color: var(--text-muted); margin-bottom: 1.5rem; font-weight: 300; font-size: 1.1rem; }
+        
+        a {
+            color: var(--c-light-peach);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+        }
+
+        a:hover { color: var(--c-peach); }
+        
+        /* Inline link underline animation */
+        p a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background-color: currentColor;
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out;
+        }
+        p a:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        /* Performant Aurora Background */
+        .background-container {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            background: var(--bg-dark);
+        }
+
+        .aurora-blob {
+            position: absolute;
+            filter: blur(80px);
+            opacity: 0.4;
+            border-radius: 50%;
+            animation: float 25s infinite alternate ease-in-out;
+        }
+
+        .blob-1 {
+            background: var(--c-blue);
+            width: 40vw; height: 40vw;
+            top: -10%; left: -10%;
+        }
+
+        .blob-2 {
+            background: var(--c-green);
+            width: 50vw; height: 30vw;
+            bottom: -20%; right: -10%;
+            animation-delay: -5s;
+            animation-duration: 30s;
+        }
+
+        .blob-3 {
+            background: var(--c-peach);
+            width: 30vw; height: 30vw;
+            top: 40%; left: 40%;
+            opacity: 0.15;
+            animation-delay: -10s;
+            animation-duration: 35s;
+        }
+
+        .noise-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(5%, 10%) scale(1.1); }
+            66% { transform: translate(-5%, 5%) scale(0.9); }
+            100% { transform: translate(10%, -5%) scale(1); }
+        }
+
+        /* Layout */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 8rem 0;
+            min-height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: transform var(--transition-slow), border-color var(--transition-slow), box-shadow var(--transition-slow);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--glass-hover-border);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 0 20px rgba(103, 162, 197, 0.1);
+        }
+
+        /* Hero Section */
+        #hero {
+            min-height: 100vh;
+            padding-top: 15vh;
+            justify-content: flex-start;
+        }
+
+        .accent-text {
+            background: linear-gradient(135deg, var(--c-green), var(--c-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tags {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .tag {
+            font-size: 0.85rem;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            background: rgba(155, 206, 193, 0.1);
+            color: var(--c-green);
+            border: 1px solid rgba(155, 206, 193, 0.2);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--text-main);
+            color: var(--bg-dark);
+            border: 1px solid var(--text-main);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--text-main);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary {
+            background: var(--glass-bg);
+            color: var(--text-main);
+            border: 1px solid var(--glass-border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Grid Layouts for Cards */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Specific Card adjustments */
+        .project-card h3 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .project-tech {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tech-badge {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            border-left: 1px solid var(--glass-border);
+            padding-left: 2rem;
+            margin-left: 1rem;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+        
+        .timeline-item:last-child { margin-bottom: 0; }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.35rem;
+            top: 0.4rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--c-blue);
+            box-shadow: 0 0 10px var(--c-blue);
+        }
+
+        .timeline-meta {
+            font-size: 0.85rem;
+            color: var(--c-blue);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Interests Section */
+        .interests-grid {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .interest-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--glass-bg);
+            padding: 1rem 1.5rem;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            transition: transform var(--transition-fast), border-color var(--transition-fast);
+        }
+
+        .interest-item:hover {
+            transform: translateY(-2px);
+            border-color: var(--c-peach);
+            color: var(--c-peach);
+        }
+
+        .interest-item i {
+            width: 1.2rem;
+            height: 1.2rem;
+        }
+
+        /* Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 4rem;
+        }
+
+        /* Responsive Media Queries */
+        @media (max-width: 768px) {
+            section { padding: 5rem 0; }
+            .container { padding: 0 1.5rem; }
+            .hero-buttons { flex-direction: column; }
+            .btn { width: 100%; justify-content: center; }
+            .timeline { padding-left: 1.5rem; margin-left: 0.5rem; }
+            .timeline-item::before { left: -1.85rem; }
+        }
+
+        /* Accessibility: Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .aurora-blob { animation: none; }
+            .reveal { transition: none; opacity: 1; transform: translateY(0); }
+            .glass-card { transition: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Animated Background -->
+    <div class="background-container" aria-hidden="true">
+        <div class="aurora-blob blob-1"></div>
+        <div class="aurora-blob blob-2"></div>
+        <div class="aurora-blob blob-3"></div>
+        <div class="noise-overlay"></div>
+    </div>
+
+    <main class="container">
+        
+        <!-- Hero Section -->
+        <section id="hero" class="reveal">
+            <h1>Hi, I'm <span class="accent-text">Jesko</span>.</h1>
+            <h2>Computer Science student at KIT.</h2>
+            
+            <div class="tags">
+                <span class="tag">Cybersecurity</span>
+                <span class="tag">Cryptography</span>
+                <span class="tag">Number Theory</span>
+            </div>
+            
+            <p>I enjoy building reliable software, exploring secure systems and creating projects that combine elegant engineering with practical usability.</p>
+            
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">
+                    <i data-lucide="folder-code"></i> View Projects
+                </a>
+                <a href="#contact" class="btn btn-secondary">
+                    <i data-lucide="mail"></i> Contact Me
+                </a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="reveal">
+            <h2>About</h2>
+            <div class="glass-card">
+                <p>I am a Computer Science major with a minor in Mathematics studying at the Karlsruhe Institute of Technology (KIT). My academic and personal interests gravitate heavily towards cybersecurity, cryptography, and number theory.</p>
+                <p style="margin-bottom: 0;">I have a deep appreciation for well-designed, functional software. Whether I am diving into low-level system security or exploring the latest frameworks, I am constantly learning new technologies to build robust and thoughtful solutions.</p>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="reveal">
+            <h2>Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="timeline-meta">Faculty of Mathematics, KIT</span>
+                    <h3>Computer Administrator</h3>
+                    <p>Responsible for maintaining computer systems and supporting the technical infrastructure, ensuring secure and reliable operations for the faculty.</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-meta">KIT</span>
+                    <h3>Mathematics Tutor</h3>
+                    <p>Teaching and helping fellow students understand complex mathematical concepts, fostering a collaborative and effective learning environment.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="reveal">
+            <h2>Projects</h2>
+            <div class="grid-2">
+                
+                <div class="glass-card project-card">
+                    <h3>Lo-Fi Passwordmanager 
+                        <a href="https://github.com/Lo-Fi-Passwordmanager/Lo-Fi-Passwordmanager" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository">
+                            <i data-lucide="github"></i>
+                        </a>
+                    </h3>
+                    <p>A decentralized, local-first password manager focusing on privacy and seamless synchronization without central authority.</p>
+                    <div class="project-tech">
+                        <span class="tech-badge">Automerge</span>
+                        <span class="tech-badge">Local-First</span>
+                        <span class="tech-badge">Cryptography</span>
+                    </div>
+                </div>
+
+                <div class="glass-card project-card">
+                    <h3>Megastar 
+                        <a href="https://github.com/Lila-Kuhlt/Megastar" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository">
+                            <i data-lucide="github"></i>
+                        </a>
+                    </h3>
+                    <p>A modern karaoke player implementing the Superstar file format, built from the ground up with a clean, modern C# architecture.</p>
+                    <div class="project-tech">
+                        <span class="tech-badge">C#</span>
+                        <span class="tech-badge">.NET</span>
+                        <span class="tech-badge">Architecture</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Community Section -->
+        <section id="community" class="reveal">
+            <h2>Community</h2>
+            <div class="glass-card">
+                <h3>KIT GameJam</h3>
+                <p>I actively organize and participate in game jams through the KIT GameJam student organization. It is an incredible space for collaborative software development, creative programming, and pushing the boundaries of what can be built in a weekend.</p>
+                <a href="https://github.com/KIT-GameJam" target="_blank" rel="noopener noreferrer">
+                    <i data-lucide="github"></i> KIT-GameJam GitHub
+                </a>
+            </div>
+        </section>
+
+        <!-- Interests Section -->
+        <section id="interests" class="reveal">
+            <h2>Interests</h2>
+            <div class="interests-grid">
+                <div class="interest-item">
+                    <i data-lucide="camera"></i> Photography
+                </div>
+                <div class="interest-item">
+                    <i data-lucide="mountain"></i> Climbing
+                </div>
+                <div class="interest-item">
+                    <i data-lucide="map"></i> Hiking
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="reveal">
+            <h2>Contact</h2>
+            <div class="grid-2">
+                <a href="mailto:mail@jesko-kissner.de" class="glass-card" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <i data-lucide="mail" style="width: 2rem; height: 2rem; color: var(--c-blue);"></i >
+                    <span>mail@jesko-kissner.de</span>
+                </a>
+                
+                <a href="https://github.com/JeskoKissner" target="_blank" rel="noopener noreferrer" class="glass-card" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <i data-lucide="github" style="width: 2rem; height: 2rem; color: var(--c-green);"></i >
+                    <span>GitHub</span>
+                </a>
+
+                <a href="https://www.instagram.com/jesko_spgh/" target="_blank" rel="noopener noreferrer" class="glass-card" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <i data-lucide="instagram" style="width: 2rem; height: 2rem; color: var(--c-peach);"></i >
+                    <span>Instagram</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Jesko Kissner. Handcrafted with care.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Intersection Observer for smooth reveal animations on scroll
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Optional: Unobserve after revealing for better performance
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => observer.observe(el));
+            
+            // Trigger the hero section immediately
+            setTimeout(() => {
+                const hero = document.getElementById('hero');
+                if(hero) hero.classList.add('active');
+            }, 100);
+        });
+    </script>
+</body>
+</html>
