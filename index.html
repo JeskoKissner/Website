@@ -3,8 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jesko | Computer Science</title>
-    <meta name="description" content="Personal portfolio of Jesko, Computer Science student at KIT specializing in Cybersecurity, Cryptography, and Number Theory.">
+
+    <!-- Primary SEO Meta Tags -->
+    <title>Jesko Kissner | Computer Science & Cryptography Portfolio</title>
+    <meta name="description" content="Personal portfolio of Jesko Kissner, Computer Science student at KIT specializing in Cybersecurity, Cryptography, and Number Theory.">
+    <meta name="keywords" content="Jesko Kissner, Jesko, KIT, Computer Science, Cybersecurity, Cryptography, Number Theory, Portfolio">
+    <meta name="author" content="Jesko Kissner">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://jesko-kissner.de/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jesko-kissner.de/">
+    <meta property="og:title" content="Jesko Kissner | Computer Science & Cryptography">
+    <meta property="og:description" content="Portfolio of Jesko Kissner — Computer Science student at KIT specializing in Cybersecurity and Cryptography.">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Jesko Kissner | Computer Science & Cryptography">
+    <meta name="twitter:description" content="Portfolio of Jesko Kissner — Computer Science student at KIT specializing in Cybersecurity and Cryptography.">
+
+    <!-- Schema.org JSON-LD (Tells Google exactly who you are) -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Jesko Kissner",
+            "givenName": "Jesko",
+            "familyName": "Kissner",
+            "url": "https://jesko-kissner.de/",
+            "email": "mailto:mail@jesko-kissner.de",
+            "affiliation": {
+                "@type": "CollegeOrUniversity",
+                "name": "Karlsruhe Institute of Technology (KIT)"
+            },
+            "knowsAbout": ["Cybersecurity", "Cryptography", "Number Theory", "Computer Science"],
+            "sameAs": [
+                "https://github.com/JeskoKissner",
+                "https://www.instagram.com/jesko_spgh/"
+            ]
+        }
+    </script>
 
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -421,7 +460,7 @@
 
     <!-- Hero Section -->
     <section id="hero" class="reveal">
-        <h1>Hi, I'm <span class="accent-text">Jesko</span>.</h1>
+        <h1>Hi, I'm <span class="accent-text">Jesko Kissner</span>.</h1>
         <h2>Computer Science student at KIT.</h2>
 
         <div class="tags">
@@ -430,7 +469,7 @@
             <span class="tag">Number Theory</span>
         </div>
 
-        <p>I enjoy building reliable software, exploring secure systems and creating projects that combine elegant engineering with practical usability.</p>
+        <p>I enjoy building reliable software, exploring secure systems, and creating projects that combine elegant engineering with practical usability.</p>
 
         <div class="hero-buttons">
             <a href="#projects" class="btn btn-primary">
@@ -444,7 +483,7 @@
 
     <!-- About Section -->
     <section id="about" class="reveal">
-        <h2>About</h2>
+        <h2>About Me</h2>
         <div class="glass-card">
             <p>I am a Computer Science major with a minor in Mathematics studying at the Karlsruhe Institute of Technology (KIT). My academic and personal interests gravitate heavily towards cybersecurity, cryptography, and number theory.</p>
             <p style="margin-bottom: 0;">I have a deep appreciation for well-designed, functional software. Whether I am diving into low-level system security or exploring the latest frameworks, I am constantly learning new technologies to build robust and thoughtful solutions.</p>
@@ -537,17 +576,17 @@
         <h2>Contact</h2>
         <div class="grid-2">
             <a href="mailto:mail@jesko-kissner.de" class="glass-card" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
-                <i data-lucide="mail" style="width: 2rem; height: 2rem; color: var(--c-blue);"></i >
+                <i data-lucide="mail" style="width: 2rem; height: 2rem; color: var(--c-blue);"></i>
                 <span>mail@jesko-kissner.de</span>
             </a>
 
             <a href="https://github.com/JeskoKissner" target="_blank" rel="noopener noreferrer" class="glass-card" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
-                <i data-lucide="github" style="width: 2rem; height: 2rem; color: var(--c-green);"></i >
+                <i data-lucide="github" style="width: 2rem; height: 2rem; color: var(--c-green);"></i>
                 <span>GitHub</span>
             </a>
 
             <a href="https://www.instagram.com/jesko_spgh/" target="_blank" rel="noopener noreferrer" class="glass-card" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
-                <i data-lucide="instagram" style="width: 2rem; height: 2rem; color: var(--c-peach);"></i >
+                <i data-lucide="instagram" style="width: 2rem; height: 2rem; color: var(--c-peach);"></i>
                 <span>Instagram</span>
             </a>
         </div>
@@ -581,7 +620,6 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
-                    // Optional: Unobserve after revealing for better performance
                     observer.unobserve(entry.target);
                 }
             });
@@ -590,7 +628,6 @@
         const revealElements = document.querySelectorAll('.reveal');
         revealElements.forEach(el => observer.observe(el));
 
-        // Trigger the hero section immediately
         setTimeout(() => {
             const hero = document.getElementById('hero');
             if(hero) hero.classList.add('active');
